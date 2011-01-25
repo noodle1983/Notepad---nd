@@ -400,7 +400,7 @@ TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 {
 	TCHAR cwd[MAX_PATH];
 	buffer[0] = 0;
-	GetCurrentDirectory(_countof(cwd), cwd);
+	GetCurrentDirectory(MAX_PATH, cwd);
 	lstrcat(cwd, TEXT("\\"));
 
 	TCHAR *itr = buffer;
