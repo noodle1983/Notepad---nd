@@ -785,7 +785,7 @@ bool NppParameters::load()
 		    SHGetPathFromIDList(pidl, progPath);
             TCHAR nppDirLocation[MAX_PATH];
             lstrcpy(nppDirLocation, _nppPath.c_str());
-            ::pathRemoveFileSpec(nppDirLocation);
+            ::PathRemoveFileSpec(nppDirLocation);
             	
             if  (lstrcmp(progPath, nppDirLocation) == 0)
                 isLocal = false;
