@@ -138,8 +138,8 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 
 			TCHAR xmlPath[MAX_PATH];
             lstrcpy(xmlPath, nppParams->getNppPath().c_str());
-			pathAppend(xmlPath, TEXT("plugins\\Config"));
-            pathAppend(xmlPath, pi->_moduleName.c_str());
+			PathAppend(xmlPath, TEXT("plugins\\Config"));
+            PathAppend(xmlPath, pi->_moduleName.c_str());
 			PathRemoveExtension(xmlPath);
 			PathAddExtension(xmlPath, TEXT(".xml"));
 
@@ -147,8 +147,8 @@ int PluginsManager::loadPlugin(const TCHAR *pluginFilePath, vector<generic_strin
 			{
 				lstrcpyn(xmlPath, TEXT("\0"), MAX_PATH );
 				lstrcpy(xmlPath, nppParams->getAppDataNppDir() );
-				pathAppend(xmlPath, TEXT("plugins\\Config"));
-                pathAppend(xmlPath, pi->_moduleName.c_str());
+				PathAppend(xmlPath, TEXT("plugins\\Config"));
+                PathAppend(xmlPath, pi->_moduleName.c_str());
 				PathRemoveExtension( xmlPath );
 				PathAddExtension( xmlPath, TEXT(".xml") );
 				
