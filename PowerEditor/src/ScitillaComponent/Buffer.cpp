@@ -720,9 +720,15 @@ bool FileManager::loadFileData(Document doc, const TCHAR * filename, Utf8_16_Rea
 	if (!fp)
 		return false;
 
+#ifndef __MINGW32__
 	//Get file size
 	_fseeki64 (fp , 0 , SEEK_END);
-	unsigned __int64 fileSize =_ftelli64(fp);
+	unsigned __int64 fileSize = _ftelli64(fp);
+#else
+	fseek (fp , 0 , SEEK_END);
+	unsigned __int64 fileSize = ftell(fp);
+
+#endif //__MINGW32__
 	rewind(fp);
 	// size/6 is the normal room Scintilla keeps for editing, but here we limit it to 1MiB when loading (maybe we want to load big files without editing them too much)
 	unsigned __int64 bufferSizeRequested = fileSize + min(1<<20,fileSize/6);
