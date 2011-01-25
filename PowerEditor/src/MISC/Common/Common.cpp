@@ -450,7 +450,7 @@ TCHAR *BuildMenuFileName(TCHAR *buffer, int len, int pos, const TCHAR *filename)
 	return buffer;
 }
 
-generic_string PathRemoveFileSpec(generic_string & path)
+generic_string pathRemoveFileSpec(generic_string & path)
 {
     generic_string::size_type lastBackslash = path.find_last_of(TEXT('\\'));
     if (lastBackslash == generic_string::npos)
@@ -472,7 +472,7 @@ generic_string PathRemoveFileSpec(generic_string & path)
 	return path;
 }
 
-generic_string PathAppend(generic_string &strDest, const generic_string str2append)
+generic_string pathAppend(generic_string &strDest, const generic_string str2append)
 {
 	if (strDest == TEXT("") && str2append == TEXT("")) // "" + ""
 	{

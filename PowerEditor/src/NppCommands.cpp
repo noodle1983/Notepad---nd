@@ -217,7 +217,7 @@ void Notepad_plus::command(int id)
 			else if (id == IDM_EDIT_CURRENTDIRTOCLIP)
 			{
 				generic_string dir(buf->getFullPathName());
-				PathRemoveFileSpec(dir);
+				pathRemoveFileSpec(dir);
 				str2Cliboard(dir.c_str());
 			}
 			else if (id == IDM_EDIT_FILENAMETOCLIP)
@@ -1835,10 +1835,10 @@ void Notepad_plus::command(int id)
 		case IDM_UPDATE_NPP :
 		{
 			generic_string updaterDir = (NppParameters::getInstance())->getNppPath();
-			PathAppend(updaterDir ,TEXT("updater"));
+			pathAppend(updaterDir ,TEXT("updater"));
 
 			generic_string updaterFullPath = updaterDir;
-			PathAppend(updaterFullPath, TEXT("gup.exe"));
+			pathAppend(updaterFullPath, TEXT("gup.exe"));
 			
 			generic_string param = TEXT("-verbose -v");
 			param += VERSION_VALUE;

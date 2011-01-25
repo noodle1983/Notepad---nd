@@ -80,7 +80,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 	{
 		TCHAR str2display[MAX_PATH*2];
 		generic_string longFileDir(longFileName);
-		PathRemoveFileSpec(longFileDir);
+		pathRemoveFileSpec(longFileDir);
 
 		bool isCreateFileSuccessful = false;
 		if (PathFileExists(longFileDir.c_str()))
@@ -154,7 +154,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 				::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			}
 		}
-		PathRemoveFileSpec(longFileName);
+		pathRemoveFileSpec(longFileName);
 		_linkTriggered = true;
 		_isDocModifing = false;
 		
@@ -706,7 +706,7 @@ bool Notepad_plus::fileSave(BufferID id)
 
 					// std::string path should be a temp throwable variable 
 					generic_string path = fn;
-					::PathRemoveFileSpec(path);
+					::pathRemoveFileSpec(path);
 					fn_dateTime_bak = path.c_str();
 					
 

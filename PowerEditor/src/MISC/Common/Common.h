@@ -166,7 +166,7 @@ private:
 #define REBARBAND_SIZE sizeof(REBARBANDINFO)
 #endif
 
-generic_string PathRemoveFileSpec(generic_string & path);
-generic_string PathAppend(generic_string &strDest, const generic_string str2append);
+generic_string pathRemoveFileSpec(generic_string & path);
+generic_string pathAppend(generic_string &strDest, const generic_string str2append);
 
 #endif //M30_IDE_COMMUN_H

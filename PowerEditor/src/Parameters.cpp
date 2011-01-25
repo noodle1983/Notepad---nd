@@ -626,7 +626,7 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	TCHAR nppPath[MAX_PATH];
 	::GetModuleFileName(NULL, nppPath, MAX_PATH);
 	
-	PathRemoveFileSpec(nppPath);
+	pathRemoveFileSpec(nppPath);
 	_nppPath = nppPath;
 
 	//Initialize current directory to startup directory
@@ -636,7 +636,7 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 
 	_appdataNppDir = TEXT("");
 	generic_string notepadStylePath(_nppPath);
-	PathAppend(notepadStylePath, notepadStyleFile);
+	pathAppend(notepadStylePath, notepadStyleFile);
 		
 	_asNotepadStyle = (PathFileExists(notepadStylePath.c_str()) == TRUE);
 
@@ -732,14 +732,14 @@ bool NppParameters::reloadLang()
 	generic_string nativeLangPath(_localizationSwitcher._nativeLangPath);
 #else
 	generic_string nativeLangPath(_userPath);
-	PathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));
+	pathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));
 #endif
 
 	// if "nativeLang.xml" does not exist, use npp path
 	if (!PathFileExists(nativeLangPath.c_str()))
 	{
 		nativeLangPath = _nppPath;
-		PathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));	
+		pathAppend(nativeLangPath, generic_string(TEXT("nativeLang.xml")));	
 		if (!PathFileExists(nativeLangPath.c_str()))
 			return false;
 	}
@@ -767,7 +767,7 @@ bool NppParameters::load()
 	
 	// Make localConf.xml path
 	generic_string localConfPath(_nppPath);
-	PathAppend(localConfPath, localConfFile);
+	pathAppend(localConfPath, localConfFile);
 
 	// Test if localConf.xml exist
 	bool isLocal = (PathFileExists(localConfPath.c_str()) == TRUE);
@@ -785,7 +785,7 @@ bool NppParameters::load()
 		    SHGetPathFromIDList(pidl, progPath);
             TCHAR nppDirLocation[MAX_PATH];
             lstrcpy(nppDirLocation, _nppPath.c_str());
-            ::PathRemoveFileSpec(nppDirLocation);
+            ::pathRemoveFileSpec(nppDirLocation);
             	
             if  (lstrcmp(progPath, nppDirLocation) == 0)
                 isLocal = false;
@@ -804,7 +804,7 @@ bool NppParameters::load()
 		SHGetPathFromIDList(pidl, tmp);
 		_userPath = tmp;
 
-		PathAppend(_userPath, TEXT("Notepad++"));
+		pathAppend(_userPath, TEXT("Notepad++"));
 		_appdataNppDir = _userPath;
 
 		if (!PathFileExists(_userPath.c_str()))
@@ -831,7 +831,7 @@ bool NppParameters::load()
 	// langs.xml : for per user //
 	//--------------------------//
 	generic_string langs_xml_path(_userPath);
-	PathAppend(langs_xml_path, TEXT("langs.xml"));
+	pathAppend(langs_xml_path, TEXT("langs.xml"));
 
     BOOL doRecover = FALSE;
     if (::PathFileExists(langs_xml_path.c_str()))
@@ -848,7 +848,7 @@ bool NppParameters::load()
     if (doRecover)
 	{
 		generic_string srcLangsPath(_nppPath);
-		PathAppend(srcLangsPath, TEXT("langs.model.xml"));
+		pathAppend(srcLangsPath, TEXT("langs.model.xml"));
 		::CopyFile(srcLangsPath.c_str(), langs_xml_path.c_str(), FALSE);
 	}
 
@@ -870,10 +870,10 @@ bool NppParameters::load()
 	// config.xml : for per user //
 	//---------------------------//
 	generic_string configPath(_userPath);
-	PathAppend(configPath, TEXT("config.xml"));
+	pathAppend(configPath, TEXT("config.xml"));
 	
 	generic_string srcConfigPath(_nppPath);
-	PathAppend(srcConfigPath, TEXT("config.model.xml"));
+	pathAppend(srcConfigPath, TEXT("config.model.xml"));
 
 	if (!::PathFileExists(configPath.c_str()))
 		::CopyFile(srcConfigPath.c_str(), configPath.c_str(), FALSE);
@@ -913,12 +913,12 @@ bool NppParameters::load()
 	//----------------------------//
 	
 	_stylerPath = _userPath;
-	PathAppend(_stylerPath, TEXT("stylers.xml"));
+	pathAppend(_stylerPath, TEXT("stylers.xml"));
 
 	if (!PathFileExists(_stylerPath.c_str()))
 	{
 		generic_string srcStylersPath(_nppPath);
-		PathAppend(srcStylersPath, TEXT("stylers.model.xml"));
+		pathAppend(srcStylersPath, TEXT("stylers.model.xml"));
 
 		::CopyFile(srcStylersPath.c_str(), _stylerPath.c_str(), TRUE);
 	}
@@ -949,7 +949,7 @@ bool NppParameters::load()
 	// userDefineLang.xml : for per user //
 	//-----------------------------------//
 	_userDefineLangPath = _userPath;
-	PathAppend(_userDefineLangPath, TEXT("userDefineLang.xml"));
+	pathAppend(_userDefineLangPath, TEXT("userDefineLang.xml"));
 
 	_pXmlUserLangDoc = new TiXmlDocument(_userDefineLangPath);
 	loadOkay = _pXmlUserLangDoc->LoadFile();
@@ -968,7 +968,7 @@ bool NppParameters::load()
 	// We'll look in the Notepad++ Dir.             //
 	//----------------------------------------------//
 	generic_string nativeLangPath(_userPath);
-	PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+	pathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 
 	// LocalizationSwitcher should use always user path
 #ifdef UNICODE
@@ -978,7 +978,7 @@ bool NppParameters::load()
 	if (!PathFileExists(nativeLangPath.c_str()))
 	{
 		nativeLangPath = _nppPath;
-		PathAppend(nativeLangPath, TEXT("nativeLang.xml"));
+		pathAppend(nativeLangPath, TEXT("nativeLang.xml"));
 	}
 
 	_pXmlNativeLangDocA = new TiXmlDocumentA();
@@ -995,7 +995,7 @@ bool NppParameters::load()
 	// toolbarIcons.xml : for per user //
 	//---------------------------------//
 	generic_string toolbarIconsPath(_userPath);
-	PathAppend(toolbarIconsPath, TEXT("toolbarIcons.xml"));
+	pathAppend(toolbarIconsPath, TEXT("toolbarIcons.xml"));
 
 	_pXmlToolIconsDoc = new TiXmlDocument(toolbarIconsPath);
 	loadOkay = _pXmlToolIconsDoc->LoadFile();
@@ -1010,12 +1010,12 @@ bool NppParameters::load()
 	// shortcuts.xml : for per user //
 	//------------------------------//
 	_shortcutsPath = _userPath;
-	PathAppend(_shortcutsPath, TEXT("shortcuts.xml"));
+	pathAppend(_shortcutsPath, TEXT("shortcuts.xml"));
 
 	if (!PathFileExists(_shortcutsPath.c_str()))
 	{
 		generic_string srcShortcutsPath(_nppPath);
-		PathAppend(srcShortcutsPath, TEXT("shortcuts.xml"));
+		pathAppend(srcShortcutsPath, TEXT("shortcuts.xml"));
 
 		::CopyFile(srcShortcutsPath.c_str(), _shortcutsPath.c_str(), TRUE);
 	}
@@ -1043,12 +1043,12 @@ bool NppParameters::load()
 	// contextMenu.xml : for per user //
 	//---------------------------------//
 	_contextMenuPath = _userPath;
-	PathAppend(_contextMenuPath, TEXT("contextMenu.xml"));
+	pathAppend(_contextMenuPath, TEXT("contextMenu.xml"));
 
 	if (!PathFileExists(_contextMenuPath.c_str()))
 	{
 		generic_string srcContextMenuPath(_nppPath);
-		PathAppend(srcContextMenuPath, TEXT("contextMenu.xml"));
+		pathAppend(srcContextMenuPath, TEXT("contextMenu.xml"));
 
 		::CopyFile(srcContextMenuPath.c_str(), _contextMenuPath.c_str(), TRUE);
 	}
@@ -1066,7 +1066,7 @@ bool NppParameters::load()
 	// session.xml : for per user //
 	//----------------------------//
 	_sessionPath = _userPath;
-	PathAppend(_sessionPath, TEXT("session.xml"));
+	pathAppend(_sessionPath, TEXT("session.xml"));
 
 	// Don't load session.xml if not required in order to speed up!!
 	const NppGUI & nppGUI = (NppParameters::getInstance())->getNppGUI();
@@ -1091,7 +1091,7 @@ bool NppParameters::load()
 	// blacklist.xml : for per user //
 	//------------------------------//
 	_blacklistPath = _userPath;
-	PathAppend(_blacklistPath, TEXT("blacklist.xml"));
+	pathAppend(_blacklistPath, TEXT("blacklist.xml"));
 
     if (PathFileExists(_blacklistPath.c_str()))
 	{

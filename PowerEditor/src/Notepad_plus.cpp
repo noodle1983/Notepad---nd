@@ -4128,7 +4128,7 @@ void Notepad_plus::notifyBufferChanged(Buffer * buffer, int mask)
 		checkDocState();
 		setTitle();
 		generic_string dir(buffer->getFullPathName());
-		PathRemoveFileSpec(dir);
+		pathRemoveFileSpec(dir);
 		setWorkingDir(dir.c_str());
 	}
 
@@ -4185,7 +4185,7 @@ void Notepad_plus::notifyBufferActivated(BufferID bufid, int view)
 	setDisplayFormat(buf->getFormat());
 	enableConvertMenuItems(buf->getFormat());
 	generic_string dir(buf->getFullPathName());
-	PathRemoveFileSpec(dir);
+	pathRemoveFileSpec(dir);
 	setWorkingDir(dir.c_str());
 	setTitle();
 	//Make sure the colors of the tab controls match
@@ -4314,7 +4314,7 @@ vector<generic_string> Notepad_plus::addNppComponents(const TCHAR *destDir, cons
     {
         // Get plugins dir
 		generic_string destDirName = (NppParameters::getInstance())->getNppPath();
-        PathAppend(destDirName, destDir);
+        pathAppend(destDirName, destDir);
 
         if (!::PathFileExists(destDirName.c_str()))
         {

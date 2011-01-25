@@ -27,7 +27,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR lpszCmdLine, int nCmdSh
 {
 	char cmd[CMD_LEN];
 	::GetModuleFileName(NULL, cmd, CMD_LEN);
-	PathRemoveFileSpec(cmd);
+	pathRemoveFileSpec(cmd);
 	strcat(cmd, NPP);
 
 	char param[PARAM_LEN] = "";
