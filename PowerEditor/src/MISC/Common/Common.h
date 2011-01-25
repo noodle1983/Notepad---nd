@@ -22,6 +22,8 @@
 #include <vector>
 #include <windows.h>
 #include <stdexcept>
+#include <algorithm>
+
 using namespace std;
 
 const bool dirUp = true;
