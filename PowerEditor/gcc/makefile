@@ -207,4 +207,4 @@ NotepadPPUnicode: $(OBJS) $(OBJ_RES)
 
 # Cleanup
 clean:
-	@delete.bat
+	@cmd /c delete.bat
