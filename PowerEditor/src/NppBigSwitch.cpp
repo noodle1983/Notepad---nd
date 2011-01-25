@@ -551,7 +551,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TCHAR *fileStr = lstrcpy(str, _pEditView->getCurrentBuffer()->getFullPathName());
 
 			if (Message == NPPM_GETCURRENTDIRECTORY)
-				pathRemoveFileSpec(str);
+				PathRemoveFileSpec(str);
 			else if (Message == NPPM_GETFILENAME)
 				fileStr = PathFindFileName(str);
 			else if (Message == NPPM_GETNAMEPART)
@@ -609,7 +609,7 @@ LRESULT Notepad_plus::process(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lPa
 			TCHAR str[strSize];
 
 			::GetModuleFileName(NULL, str, strSize);
-			pathRemoveFileSpec(str);
+			PathRemoveFileSpec(str);
 
 			// For the compability reason, if wParam is 0, then we assume the size of generic_string buffer (lParam) is large enough.
 			// otherwise we check if the generic_string buffer size is enough for the generic_string to copy.
