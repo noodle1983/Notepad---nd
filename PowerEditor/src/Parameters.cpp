@@ -626,7 +626,7 @@ NppParameters::NppParameters() : _pXmlDoc(NULL),_pXmlUserDoc(NULL), _pXmlUserSty
 	TCHAR nppPath[MAX_PATH];
 	::GetModuleFileName(NULL, nppPath, MAX_PATH);
 	
-	pathRemoveFileSpec(nppPath);
+	PathRemoveFileSpec(nppPath);
 	_nppPath = nppPath;
 
 	//Initialize current directory to startup directory
