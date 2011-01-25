@@ -154,7 +154,7 @@ BufferID Notepad_plus::doOpen(const TCHAR *fileName, bool isReadOnly, int encodi
 				::SendMessage(_pPublicInterface->getHSelf(), WM_SIZE, 0, 0);
 			}
 		}
-		pathRemoveFileSpec(longFileName);
+		PathRemoveFileSpec(longFileName);
 		_linkTriggered = true;
 		_isDocModifing = false;
 		
