@@ -44,6 +44,8 @@
 #include <memory>
 #include <algorithm>
 #include <exception>	
+#include <stdexcept>
+using namespace std;
 
 // Windows Header Files
 #include <windows.h>

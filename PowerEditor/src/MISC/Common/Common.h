@@ -18,14 +18,6 @@
 #ifndef M30_IDE_COMMUN_H
 #define M30_IDE_COMMUN_H
 
-#include <string>
-#include <vector>
-#include <windows.h>
-#include <stdexcept>
-#include <algorithm>
-
-using namespace std;
-
 const bool dirUp = true;
 const bool dirDown = false;
 

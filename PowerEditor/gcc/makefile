@@ -172,7 +172,8 @@ SRC_RES			= ./resources.rc
 OBJ_RES			= $(patsubst %.rc,%.res,$(SRC_RES))
 
 # Parameters
-INCLUDESPECIAL	= -include./include/various.h -includeCommon.h
+#INCLUDESPECIAL	= -include./include/various.h -includeCommon.h
+INCLUDESPECIAL	= -include./include/various.h 
 #    Comment this out for ANSI build
 UNICODE         = -DUNICODE -D_UNICODE
 
