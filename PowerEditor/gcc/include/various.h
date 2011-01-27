@@ -47,6 +47,7 @@ static inline int min(unsigned int a, unsigned int b) {
 #define GetExceptionCode()			0
 #define GetExceptionInformation()	NULL
 
+#if __GNUC__ < 4
 //Missing unicode CRT funcs
 #include <wchar.h>
 static inline double _wtof(const wchar_t * string)
@@ -55,3 +56,6 @@ static inline double _wtof(const wchar_t * string)
 	swscanf(string, L"%lf", &d);
 	return d;
 }
+#else
+#include <wchar.h>
+#endif
