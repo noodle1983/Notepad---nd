@@ -1567,7 +1567,7 @@ public:
 };
 
 void ScintillaWin::InsertPasteText(const char *text, int len, SelectionPosition selStart, bool isRectangular, bool isLine) {
-	if (isRectangular) {
+	if (sel.IsRectangular()) {
 		PasteRectangular(selStart, text, len);
 	} else {
 		char *convertedText = 0;

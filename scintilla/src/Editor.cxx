@@ -3989,12 +3989,35 @@ void Editor::PasteRectangular(SelectionPosition pos, const char *ptr, int len) {
 		InsertSpace(sel.RangeMain().caret.Position(), sel.RangeMain().caret.VirtualSpace()));
 	int xInsert = XFromPosition(sel.RangeMain().caret);
 	bool prevCr = false;
+
+	int maxMemLineLength = 0;
+	for (int j = 0; j < len; j++)
+	{
+		int lineB = j;
+		while((j < len) && !IsEOLChar(ptr[j]))
+			j++;
+		maxMemLineLength = (maxMemLineLength > (j - lineB)) ?  maxMemLineLength : (j - lineB);
+
+		while((j < len) && IsEOLChar(ptr[j]))
+			j++;
+	}
+
 	while ((len > 0) && IsEOLChar(ptr[len-1]))
 		len--;
+	int nInserted = 0;
 	for (int i = 0; i < len; i++) {
 		if (IsEOLChar(ptr[i])) {
 			if ((ptr[i] == '\r') || (!prevCr))
+			{
+				// append the spaces, make the text in the clipboard like a reckangle
+				int nExpand = maxMemLineLength - nInserted + 1;
+				if (nExpand > 0) {
+					InsertSpace(sel.MainCaret(), nExpand);
+					sel.RangeMain().caret.Add(nExpand);
+				}
+				nInserted = 0;
 				line++;
+			}
 			if (line >= pdoc->LinesTotal()) {
 				if (pdoc->eolMode != SC_EOL_LF)
 					pdoc->InsertChar(pdoc->Length(), '\r');
@@ -4013,8 +4036,14 @@ void Editor::PasteRectangular(SelectionPosition pos, const char *ptr, int len) {
 		} else {
 			pdoc->InsertString(sel.MainCaret(), ptr + i, 1);
 			sel.RangeMain().caret.Add(1);
+			nInserted++;
 			prevCr = false;
 		}
+	}
+	int nExpand = maxMemLineLength - nInserted + 1;
+	if (nExpand > 0) {
+		InsertSpace(sel.MainCaret(), nExpand);
+		sel.RangeMain().caret.Add(nExpand);
 	}
 	SetEmptySelection(pos);
 }
