@@ -3991,7 +3991,7 @@ void Editor::PasteRectangular(SelectionPosition pos, const char *ptr, int len) {
 	bool prevCr = false;
 
 	int maxMemLineLength = 0;
-	for (int j = 0; j < len; j++)
+	for (int j = 0; j < len; )
 	{
 		int lineB = j;
 		while((j < len) && !IsEOLChar(ptr[j]))
@@ -4010,7 +4010,7 @@ void Editor::PasteRectangular(SelectionPosition pos, const char *ptr, int len) {
 			if ((ptr[i] == '\r') || (!prevCr))
 			{
 				// append the spaces, make the text in the clipboard like a reckangle
-				int nExpand = maxMemLineLength - nInserted + 1;
+				int nExpand = maxMemLineLength - nInserted;
 				if (nExpand > 0) {
 					InsertSpace(sel.MainCaret(), nExpand);
 					sel.RangeMain().caret.Add(nExpand);
@@ -4040,7 +4040,7 @@ void Editor::PasteRectangular(SelectionPosition pos, const char *ptr, int len) {
 			prevCr = false;
 		}
 	}
-	int nExpand = maxMemLineLength - nInserted + 1;
+	int nExpand = maxMemLineLength - nInserted;
 	if (nExpand > 0) {
 		InsertSpace(sel.MainCaret(), nExpand);
 		sel.RangeMain().caret.Add(nExpand);
